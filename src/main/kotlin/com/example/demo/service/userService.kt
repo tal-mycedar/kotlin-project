@@ -38,23 +38,21 @@ class UserService(val userDao: UserDao) {
     }
 
     fun updateUser(userId: Long, updateUserRequest: UpdateUsersDTO): User {
-
+        val existingUser: User = userDao.findById(userId)
+            .orElseThrow { EntityNotFoundException("User with id $userId not found") }
         try {
-            val existingUser: User = userDao.findById(userId)
-                .orElseThrow { EntityNotFoundException("User with id {userId} not found") }
-
             objectMapper.updateValue(existingUser, updateUserRequest)
 
             return userDao.save(existingUser)
 
         } catch (err: Exception) {
-            throw Exception("User update failed with the following error {err}")
+            throw Exception("User update failed with the following error $err")
         }
     }
 
     fun deleteUser(userId: Long): Any {
         val user: User = userDao.findById(userId)
-            .orElseThrow { EntityNotFoundException("User with id {userId} not found") }
+            .orElseThrow { EntityNotFoundException("User with id $userId not found") }
 
         return userDao.deleteById(userId)
     }
@@ -64,4 +62,4 @@ class UserService(val userDao: UserDao) {
     }
 }
 
-//TODO: Exceptions
+//TODO: Exceptions and validations

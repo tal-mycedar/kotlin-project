@@ -6,6 +6,5 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 
 interface UserRepository {
-    fun findUsers(getUsersDTO: GetUsersDTO): List<User>
-//    fun findUsers(getUsersDTO: GetUsersDTO, pageable: Pageable): Page<User>
+    fun findUsers(pageable: Pageable, getUsersDTO: GetUsersDTO): Page<User>
 }

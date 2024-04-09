@@ -59,8 +59,8 @@ class UserService(val userDao: UserDao) {
         return userDao.deleteById(userId)
     }
 
-    fun search(getUsersDTO: GetUsersDTO): List<User> {
-        return userDao.findUsers(getUsersDTO)
+    fun search(pageable: Pageable, getUsersDTO: GetUsersDTO): Page<User> {
+        return userDao.findUsers(pageable, getUsersDTO)
     }
 }
 

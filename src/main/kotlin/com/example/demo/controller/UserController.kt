@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val userService: UserService) {
 
     @PostMapping("/search")
-    fun search(@RequestBody getUsersDTO: GetUsersDTO): List<User> {
-        return userService.search(getUsersDTO)
+    fun search(pageable: Pageable, @RequestBody getUsersDTO: GetUsersDTO): Page<User> {
+        return userService.search(pageable, getUsersDTO)
     }
 
     @PostMapping()
@@ -41,13 +41,3 @@ class UserController(private val userService: UserService) {
         return userService.deleteUser(userId)
     }
 }
-
-
-
-/*
-* create repo + commit current version
-* try to add pagination to the search method
-* add exceptions
-* add validation
-* findAll - add transformer
-* */

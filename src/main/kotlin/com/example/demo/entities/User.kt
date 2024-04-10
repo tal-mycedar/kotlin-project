@@ -5,6 +5,7 @@ import jakarta.persistence.*
 import org.hibernate.annotations.CreationTimestamp
 import org.hibernate.annotations.UpdateTimestamp
 import java.time.Instant
+import java.time.LocalDateTime
 
 @Entity
 @Table(name = "users")
@@ -22,10 +23,8 @@ open class User (
     var balance: Long? = 0,
 
     @CreationTimestamp
-    @Column(nullable = false, updatable = false)
-    val createdAt: Instant? = null,
+    val createdAt: LocalDateTime? = null,
 
     @UpdateTimestamp
-    @Column(nullable = false)
-    var updatedAt: Instant? = null
+    var updatedAt: LocalDateTime? = null
 )

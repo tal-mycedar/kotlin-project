@@ -21,9 +21,7 @@ class UserService(val userDao: UserDao) {
     fun createUser(createUserDTO: CreateUserDTO): User {
         val userEntity: User = createUserDTO.toDomainEntity()
 
-        userDao.save(userEntity)
-
-        return userEntity
+        return userDao.save(userEntity)
     }
 
     fun updateUser(userId: Long, updateUserRequest: UpdateUsersDTO): User {

@@ -1,8 +1,8 @@
 package com.example.demo.dto
 
 class CreateUserDTO(
-    val firstName: String,
-    val lastName: String,
-    var email: String,
-    var balance: Long? = 0
-)
+    override val firstName: String,
+    override val lastName: String,
+    override var email: String?,
+    override var balance: Long? = 0
+): UserDTO()

@@ -30,21 +30,23 @@ class UserRepositoryImpl: UserRepository {
     @PersistenceContext
     protected lateinit var entityManager: EntityManager
 
-    override fun findUsers(pageable: Pageable, getUsersDTO: GetUsersDTO): Page<User> {
+    override fun findUsers(pageable: Pageable, getUsersDTO: GetUsersDTO?): Page<User> {
         val builder: CriteriaBuilder = entityManager.criteriaBuilder
         val query = builder.createQuery(User::class.java)
         val entity = query.from(User::class.java)
         val conditions = mutableListOf<Predicate>()
 
-        for (filter in getUsersDTO::class.memberProperties) {
-            if (filter.getter.call(getUsersDTO) !== null) {
-                val predicate = buildPredicate(builder, entity, filter.name, filter.getter.call(getUsersDTO))
-                conditions.add(predicate)
+        if (getUsersDTO !== null) {
+            for (filter in getUsersDTO::class.memberProperties) {
+                if (filter.getter.call(getUsersDTO) !== null) {
+                    val predicate = buildPredicate(builder, entity, filter.name, filter.getter.call(getUsersDTO))
+                    conditions.add(predicate)
+                }
             }
-        }
 
-        if (conditions.isNotEmpty()) {
-            query.where(*conditions.toTypedArray())
+            if (conditions.isNotEmpty()) {
+                query.where(*conditions.toTypedArray())
+            }
         }
 
         if (pageable.sort.isSorted) {

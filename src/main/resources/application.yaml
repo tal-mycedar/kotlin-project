@@ -9,6 +9,8 @@ spring:
     username: taltest
     password: 1234
     driver-class-name: org.mariadb.jdbc.Driver
+  flyway:
+    enabled: true
   jpa:
     hibernate:
       ddl-auto: update

@@ -1,19 +1,14 @@
 package com.example.demo.dto
 
 import com.fasterxml.jackson.annotation.JsonInclude
-import com.fasterxml.jackson.annotation.JsonProperty
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class UpdateUsersDTO(
-    @JsonProperty("firstName")
-    val firstName: String?,
+    override val firstName: String?,
 
-    @JsonProperty("lastName")
-    val lastName: String?,
+    override val lastName: String?,
 
-    @JsonProperty("email")
-    var email: String?,
+    override var email: String?,
 
-    @JsonProperty("balance")
-    var balance: Long?
-)
+    override var balance: Long?
+): UserDTO()

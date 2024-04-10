@@ -5,10 +5,3 @@ import com.example.demo.repositories.UserRepository
 import org.springframework.data.jpa.repository.JpaRepository
 
 interface UserDao: JpaRepository<User, Long>, UserRepository {}
-
-
-//class FilterSpecifications {
-//    companion object {
-//        fun buildUserFilters(getUsersDTO: GetUsersDTO):
-//    }
-//}

@@ -19,22 +19,9 @@ class UserService(val userDao: UserDao) {
     lateinit var objectMapper: ObjectMapper
 
     fun createUser(createUserDTO: CreateUserDTO): User {
-        val userEntity = createUserDTO.let {
-            User(null, it.firstName, it.lastName, it.email, it.balance)
-        }
+        val userEntity: User = createUserDTO.toDomainEntity()
 
-        userDao.save(userEntity)
-
-        userEntity.let {
-            User(it.id, it.firstName, it.lastName, it.email, it.balance)
-        }
-
-        return userEntity
-    }
-
-    fun getUsers(pageable: Pageable): Page<User> {
-        return userDao.findAll(pageable).map { User(it.id, it.firstName, it.lastName, it.email, it.balance, it.createdAt,
-            it.updatedAt) } //TODO: Replace with a transformer
+        return userDao.save(userEntity)
     }
 
     fun updateUser(userId: Long, updateUserRequest: UpdateUsersDTO): User {
@@ -57,7 +44,7 @@ class UserService(val userDao: UserDao) {
         return userDao.deleteById(userId)
     }
 
-    fun search(pageable: Pageable, getUsersDTO: GetUsersDTO): Page<User> {
+    fun search(pageable: Pageable, getUsersDTO: GetUsersDTO?): Page<User> {
         return userDao.findUsers(pageable, getUsersDTO)
     }
 }

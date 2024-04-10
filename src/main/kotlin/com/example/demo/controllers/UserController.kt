@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.*
 class UserController(private val userService: UserService) {
 
     @PostMapping("/search")
-    fun search(pageable: Pageable, @RequestBody getUsersDTO: GetUsersDTO): Page<User> {
+    fun search(pageable: Pageable, @RequestBody getUsersDTO: GetUsersDTO?): Page<User> {
         return userService.search(pageable, getUsersDTO)
     }
 
@@ -23,11 +23,6 @@ class UserController(private val userService: UserService) {
     @ResponseStatus(HttpStatus.CREATED)
     fun createUser(@RequestBody createUserDTO: CreateUserDTO): User {
         return userService.createUser(createUserDTO)
-    }
-
-    @GetMapping()
-    fun getUsers(pageable: Pageable, @RequestBody(required = false) getUsersDTO: GetUsersDTO?): Page<User> {
-        return userService.getUsers(pageable)
     }
 
     @PatchMapping("/{userId}")
